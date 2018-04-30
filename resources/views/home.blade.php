@@ -14,8 +14,11 @@
                         </div>
                     @endif
 
-                    <p>{{ $products->total() }} registros | página {{ $products->currentPage() }} 
-                    de {{ $products->lastPage() }}</p>
+                    <span id="products-total">{{ $products->total() }} registros | página {{ $products->currentPage() }} 
+                    de {{ $products->lastPage() }}</span>
+
+                    <div id="alert" class="alert alert-info"></div>
+
                     <table class="table table-hover table-striped">
                         <thead>
                             <tr>
@@ -31,7 +34,11 @@
                             <tr>
                                 <td width="20px">{{ $item ->id }}</td>
                                 <td >{{ $item ->name }}</td>
-                                <td width="20px"></td>
+                                <td width="20px">
+                                    {!! Form::open(['route' => ['destroyProduct', $item->id], 'method' => 'DELETE']) !!}
+                                        <a href="#" class="btn-delete">Eliminar</a>
+                                    {!! Form::close() !!}
+                                </td>
                             </tr>
 
                             @endforeach
@@ -43,4 +50,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 @endsection
